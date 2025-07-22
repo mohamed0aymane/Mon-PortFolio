@@ -1,0 +1,30 @@
+<footer class="bg-dark text-white py-4 mt-5">
+  <div class="container">
+    <div class="row">
+    
+      <div class="col-md-3">
+        <h5>Contact</h5>
+        <ul class="list-unstyled">
+          <li><i class="fas fa-phone me-2"></i> {{ profile.phone }}</li>
+          <li><i class="fas fa-envelope me-2"></i> {{ profile.email }}</li>
+          <li><i class="fas fa-map-marker-alt me-2"></i> {{ profile.address }}</li>
+        </ul>
+      </div>
+      <div class="col-md-3">
+        <h5>Réseaux</h5>
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/mohamed-aymane-lamhamdi-443079316/" target="_blank" class="text-white me-2">
+            <i class="fab fa-linkedin fa-2x"></i>
+          </a>
+          <a href="https://github.com/{{ profile.links[0].github }}" target="_blank" class="text-white">
+            <i class="fab fa-github fa-2x"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="text-center">
+      <p class="mb-0">&copy; {{ currentYear }} {{ profile.firstName }} {{ profile.lastName }}. Tous droits réservés.</p>
+    </div>
+  </div>
+</footer>

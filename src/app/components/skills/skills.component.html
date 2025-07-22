@@ -1,0 +1,23 @@
+<section class="skills-section">
+  <div class="container">
+    <h2 class="section-title">Compétences Techniques</h2>
+    
+    <div class="skills-grid">
+      @for (skill of techSkills; track trackBySkill($index, skill)) {
+        <div class="skill-card">
+          <h3 class="skill-title">{{ skill.skill }}</h3>
+          <ul class="skill-details">
+            @for (detail of skill.details; track $index) {
+              <li>{{ detail }}</li>
+            }
+          </ul>
+        </div>
+      }
+    </div>
+  </div>
+  
+  <div class="skills-shapes">
+    <div class="skills-circle"></div>
+    <div class="skills-triangle"></div>
+  </div>
+</section>

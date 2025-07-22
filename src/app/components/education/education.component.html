@@ -1,0 +1,19 @@
+<section class="education-section">
+  <div class="container">
+    <h2>Formation</h2>
+    
+    <div class="education-items">
+      @for (item of education; track item.diploma) {
+        <div class="education-item">
+          <h3>{{item.diploma}}</h3>
+          <div class="education-meta">
+            <span>{{item.organisation}}</span>
+            <span>{{item.year}}</span>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+  
+
+</section>

@@ -1,0 +1,88 @@
+<section class="hero-section">
+  <div class="container">
+    <div class="hero-content">
+      <div class="profile-container">
+        <div class="profile-img-wrapper">
+          <img [src]="profile.photo" alt="Profile photo" class="profile-img">
+          <div class="img-border-animation"></div>
+          <div class="img-dots-animation"></div>
+        </div>
+      </div>
+      
+      <div class="hero-text">
+        <h1 class="hero-title">
+          <span class="title-gradient">{{ profile.firstName }}</span>
+          <span class="title-outline">{{ profile.lastName }}</span>
+        </h1>
+        
+        <div class="summary-box">
+          <p class="summary-text">{{ profile.professionalSummary }}</p>
+          <div class="summary-decoration"></div>
+        </div>
+        
+        <div class="cta-buttons">
+          <a href="assets/documents/cv.pdf" 
+            download="CV_{{profile.firstName}}_{{profile.lastName}}.pdf" 
+            class="btn-download">
+            <span>Télécharger CV</span>
+            <i class="fas fa-download"></i>
+          </a>
+          <a [routerLink]="['/contact']" class="btn-contact">
+            <span>Me contacter</span>
+            <i class="fas fa-paper-plane"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="hero-shapes">
+    <div class="shape-circle"></div>
+    <div class="shape-triangle"></div>
+    <div class="shape-wave"></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">À propos de moi</h2>
+  
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="space-y-6">
+        <div class="card">
+          <h3 class="card-title">Informations personnelles</h3>
+          <ul>
+            <li><strong>Nom complet:</strong> {{profile.firstName}} {{profile.lastName}}</li>
+            <li><strong>Date de naissance:</strong> {{profile.birthday.day}}/{{profile.birthday.month}}/{{profile.birthday.year}} ({{getAge(profile.birthday)}} ans)</li>
+            <li><strong>Adresse:</strong> {{profile.address}}</li>
+            <li><strong>Téléphone:</strong> {{profile.phone}}</li>
+            <li><strong>Email:</strong> {{profile.email}}</li>
+          </ul>
+        </div>
+        
+        <div class="card">
+          <h3 class="card-title">Soft Skills</h3>
+          <div class="soft-skills-container">
+            @for (skill of softSkills; track trackBySoftSkill($index, skill)) {
+              <span class="soft-skill-badge">{{ skill }}</span>
+            }
+          </div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <h3 class="card-title">Langues</h3>
+        <div *ngFor="let lang of languages" class="mb-4">
+          <div class="flex justify-between mb-1">
+            <span>{{lang.language}} : </span>
+            <span> {{lang.level}}</span>
+          </div>
+          <div class="w-full bg-gray-200 rounded-full h-2.5">
+            <div class="bg-blue-600 h-2.5 rounded-full" 
+                 [style.width.%]="lang.level === 'maternelle' ? 100 : 80"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

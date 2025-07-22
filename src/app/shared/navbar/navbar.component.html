@@ -1,0 +1,37 @@
+<nav class="navbar">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/" (click)="closeMenu()">
+      <span class="brand-gradient">Mon</span>
+      <span class="brand-outline">Portfolio</span>
+    </a>
+    
+    <button class="navbar-toggler" type="button" 
+            (click)="toggleMenu()"
+            [attr.aria-expanded]="!isCollapsed"
+            aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon">
+        <span class="toggler-line"></span>
+        <span class="toggler-line"></span>
+        <span class="toggler-line"></span>
+      </span>
+    </button>
+    
+    <div class="navbar-menu" [class.show]="!isCollapsed" @slideInOut>
+      <div class="menu-backdrop"></div>
+      <ul class="nav-list">
+        @for (item of navItems; track item.path) {
+          <li class="nav-item">
+            <a class="nav-link" 
+               [routerLink]="item.path" 
+               routerLinkActive="active"
+               (click)="closeMenu()">
+               <span class="link-text">{{ item.title }}</span>
+               <span class="link-hover"></span>
+            </a>
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+  <div class="navbar-border"></div>
+</nav>

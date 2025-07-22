@@ -1,0 +1,59 @@
+<section class="experience-section">
+  <div class="container">
+    <h2>Expériences Professionnelles</h2>
+    
+
+    <div class="mb-12">
+      <h3>Stages & Projets</h3>
+      <div class="space-y-8">
+        @for (exp of experiences; track exp.title) {
+          <div class="experience-card">
+            <div class="experience-header">
+              <div>
+                <h4 class="experience-title">{{exp.title}}</h4>
+                <p class="experience-org">{{exp.organisation}}</p>
+                @if (exp.type === 'Stage') {
+                  <p class="experience-meta">
+                    <i class="far fa-calendar-alt"></i>
+                    {{exp.duration}} ({{exp.year}})
+                  </p>
+                }
+              </div>
+              @if (exp.technologies && exp.technologies.length > 0) {
+                <div class="flex flex-wrap gap-2">
+                  @for (tech of exp.technologies; track tech) {
+                    <span class="tech-badge">{{tech}}</span>
+                  }
+                </div>
+              }
+            </div>
+            <p class="experience-desc">{{exp.description}}</p>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div>
+      <h3>Autres Expériences</h3>
+      <div class="experience-grid">
+        @for (proExp of professionalExperiences; track proExp.title) {
+          <div class="experience-card">
+            <h4 class="experience-title">{{proExp.title}}</h4>
+            <p class="experience-org">{{proExp.organisation}}</p>
+            @if (proExp.duration) {
+              <p class="experience-meta">
+                <i class="far fa-calendar-alt"></i>
+                {{proExp.duration}}
+              </p>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+  
+  <div class="experience-shapes">
+    <div class="experience-blob"></div>
+    <div class="experience-dots"></div>
+  </div>
+</section>

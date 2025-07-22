@@ -1,0 +1,332 @@
+// Variables
+$primary-color: #6e45e2;
+$secondary-color: #88d3ce;
+$text-color: #2d3748;
+$light-bg: #f8f9fa;
+$dark-bg: #1a1a2e;
+$transition-speed: 0.4s;
+$easing: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin gradient-text {
+  background: linear-gradient(135deg, $primary-color 0%, $secondary-color 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@mixin hover-effect {
+  transition: all $transition-speed ease;
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+// Navbar Styles
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba($dark-bg, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 1000;
+  padding: 1rem 0;
+  transition: all 0.3s ease;
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    position: relative;
+  }
+
+  &-border {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, $primary-color, $secondary-color);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform $transition-speed $easing;
+  }
+
+  &:hover &-border {
+    transform: scaleX(1);
+  }
+
+  &-brand {
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 1002;
+    @include hover-effect;
+
+    .brand-gradient {
+      @include gradient-text;
+      font-weight: 800;
+    }
+
+    .brand-outline {
+      color: white;
+      position: relative;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, $primary-color, $secondary-color);
+        transform: scaleX(0);
+        transform-origin: right;
+        transition: transform $transition-speed $easing;
+      }
+    }
+
+    &:hover .brand-outline::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+  }
+
+  &-toggler {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 1002;
+    display: none;
+
+    &-icon {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 20px;
+    }
+
+    .toggler-line {
+      height: 2px;
+      background: white;
+      width: 100%;
+      margin: 2px 0;
+      transition: all $transition-speed $easing;
+      transform-origin: center;
+    }
+
+    &[aria-expanded="true"] {
+      .toggler-line:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+      }
+      .toggler-line:nth-child(2) {
+        opacity: 0;
+      }
+      .toggler-line:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+      }
+    }
+  }
+
+  &-menu {
+    display: flex;
+    align-items: center;
+    transition: all $transition-speed $easing;
+
+    .menu-backdrop {
+      display: none;
+    }
+
+    .nav-list {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-item {
+      position: relative;
+    }
+
+    .nav-link {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1rem;
+      position: relative;
+      display: inline-block;
+      padding: 0.5rem 0;
+
+      .link-text {
+        position: relative;
+        z-index: 1;
+        transition: transform $transition-speed ease;
+      }
+
+      .link-hover {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 2px;
+        width: 100%;
+        background: linear-gradient(90deg, $primary-color, $secondary-color);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform $transition-speed $easing;
+      }
+
+      &:hover .link-text {
+        transform: translateY(-3px);
+        @include gradient-text;
+      }
+
+      &:hover .link-hover,
+      &.active .link-hover {
+        transform: scaleX(1);
+      }
+
+      &.active .link-text {
+        @include gradient-text;
+      }
+    }
+  }
+}
+
+// Slide In Animation
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Responsive Styles
+@media (max-width: 992px) {
+  .navbar {
+    &-toggler {
+      display: block;
+    }
+
+    &-menu {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 70%;
+      max-width: 300px;
+      height: 100vh;
+      background: rgba($dark-bg, 0.98);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      flex-direction: column;
+      justify-content: center;
+      transform: translateX(100%);
+      box-shadow: -5px 0 30px rgba(0, 0, 0, 0.2);
+      z-index: 1001;
+
+      &.show {
+        transform: translateX(0);
+      }
+
+      .menu-backdrop {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: -1;
+        opacity: 0;
+        transition: opacity $transition-speed ease;
+      }
+
+      &.show .menu-backdrop {
+        opacity: 1;
+      }
+
+      .nav-list {
+        flex-direction: column;
+        width: 100%;
+        padding: 2rem;
+        gap: 2rem;
+      }
+
+      .nav-item {
+        margin: 0.5rem 0;
+        opacity: 0;
+        animation: slideIn 0.4s $easing forwards;
+
+        @for $i from 1 through 10 {
+          &:nth-child(#{$i}) {
+            animation-delay: 0.1s * $i;
+          }
+        }
+      }
+
+      .nav-link {
+        font-size: 1.3rem;
+        padding: 0.8rem 1rem;
+        display: block;
+
+        .link-hover {
+          height: 100%;
+          width: 4px;
+          left: 0;
+          bottom: auto;
+          transform: scaleX(0);
+        }
+
+        &:hover .link-hover,
+        &.active .link-hover {
+          transform: scaleX(1);
+        }
+      }
+    }
+  }
+}
+
+// Light Mode Support
+@media (prefers-color-scheme: light) {
+  .navbar {
+    background-color: rgba(white, 0.95);
+
+    &-brand {
+      .brand-outline {
+        color: $text-color;
+      }
+    }
+
+    &-menu {
+      background: rgba(white, 0.98);
+
+      .nav-link {
+        color: $text-color;
+      }
+    }
+
+    .toggler-line {
+      background: $text-color;
+    }
+  }
+}
